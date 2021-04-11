@@ -2,8 +2,11 @@ import useStyles from './useStyle';
 
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
-import { showContacts, getError } from '../../redux/contacts-selectors';
-import { deleteContact } from '../../redux/contacts-operations';
+import {
+  showContacts,
+  getError,
+} from '../../redux/contacts/contacts-selectors';
+import { deleteContact } from '../../redux/contacts/contacts-operations';
 
 const ContactList = () => {
   const classes = useStyles();
@@ -41,6 +44,5 @@ const ContactList = () => {
     </>
   );
 };
-
 
 export default ContactList;

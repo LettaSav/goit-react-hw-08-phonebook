@@ -1,29 +1,46 @@
-import { useSelector } from 'react-redux';
-import { getContacts } from './redux/contacts-selectors';
-import useStyles from './AppStyles';
+import { Switch } from 'react-router-dom';
+import { Suspense, lazy, useEffect } from 'react';
+import PrivateRoute from './Components/PrivetRoute';
+import PublicRoute from './Components/PublicRoute';
+import { useDispatch } from 'react-redux';
+import { getCurrentUser } from './redux/authOperation/auth-operations';
 
 import React from 'react';
 
-import ContactForm from './Components/ContactForm/ContactForm';
-import Filter from './Components/Filter/Filter';
-import ContactList from './Components/ContactList/ContactList';
+const HomePage = lazy(() => import('./views/HomePage'));
+const RegisterPage = lazy(() => import('./views/RegisterPage'));
+const LoginPage = lazy(() => import('./views/LoginPage'));
+const PhoneBookPage = lazy(() => import('./views/PhoneBookPage'));
 
 function App() {
-  const classes = useStyles();
-  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, [dispatch]);
   return (
-    <div className={classes.main_container}>
-      <h1 className={classes.header_title}>Phonebook</h1>
-      <ContactForm />
-      <h2>Contacts</h2>
-      {contacts.length >= 1 && <Filter />}
-      {contacts.length > 0 ? (
-        <ContactList />
-      ) : (
-        <p>We coudnt find any contacts in your phonebook, add some contacts</p>
-      )}
-    </div>
+    <Suspense fallback={<p>Загружаем...</p>}>
+      <Switch>
+        <PublicRoute exact path="/" component={HomePage} />
+        <PublicRoute
+          path="/register"
+          restricted
+          redirectTo="/contacts"
+          component={RegisterPage}
+        />
+        <PublicRoute
+          path="/login"
+          restricted
+          redirectTo="/contacts"
+          component={LoginPage}
+        />
+        <PrivateRoute
+          path="/contacts"
+          redirectTo="/login"
+          component={PhoneBookPage}
+        />
+      </Switch>
+    </Suspense>
   );
 }
 

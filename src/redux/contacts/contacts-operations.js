@@ -13,8 +13,6 @@ import {
 
 import { v4 as uuidv4 } from 'uuid';
 
-// axios.defaults.baseURL = 'http://localhost:3000';
-
 export const fetchContacts = () => async dispatch => {
   dispatch(fetchContactsRequest());
 
