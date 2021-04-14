@@ -1,21 +1,10 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { logIn } from '../redux/authOperation/auth-operations';
-import { createUseStyles } from 'react-jss';
+import useStyles from './useStyles';
 import { toast } from 'react-toastify';
 
-const useStyles = createUseStyles({
-  form: {
-    width: 320,
-  },
-  label: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginBottom: 15,
-  },
-});
-
-export const LoginPage = () => {
+export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const styles = useStyles();
@@ -47,32 +36,32 @@ export const LoginPage = () => {
   };
 
   return (
-    <div>
-      <h1>Страница логина</h1>
+    <div className={styles.main_container}>
+      <h1 className={styles.header_title}>Login</h1>
 
-      <form onSubmit={handleSubmit} style={styles.form} autoComplete="off">
-        <label style={styles.label}>
-          Почта
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleInputChange}
-          />
-        </label>
+      <form onSubmit={handleSubmit} className={styles.form} autoComplete="off">
+        <label className={styles.label}>Email</label>
+        <input
+          type="email"
+          name="email"
+          value={email}
+          onChange={handleInputChange}
+          className={styles.login_input}
+        />
 
-        <label style={styles.label}>
-          Пароль
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handleInputChange}
-          />
-        </label>
+        <label className={styles.label}>Password</label>
+        <input
+          type="password"
+          name="password"
+          value={password}
+          onChange={handleInputChange}
+          className={styles.login_input}
+        />
 
-        <button type="submit">Войти</button>
+        <button className={styles.submit_button} type="submit">
+          Enter
+        </button>
       </form>
     </div>
   );
-};
+}

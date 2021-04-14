@@ -1,21 +1,10 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { register } from '../redux/authOperation/auth-operations';
-import { createUseStyles } from 'react-jss';
 import { toast } from 'react-toastify';
+import useStyles from './useStyles';
 
-const useStyles = createUseStyles({
-  form: {
-    width: 320,
-  },
-  label: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginBottom: 15,
-  },
-});
-
-export const RegisterPage = () => {
+export default function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -53,42 +42,41 @@ export const RegisterPage = () => {
   };
 
   return (
-    <div>
-      <h1>Страница регистрации</h1>
+    <div className={styles.main_container}>
+      <h1 className={styles.header_title}>Registration</h1>
 
-      <form onSubmit={handleSubmit} style={styles.form} autoComplete="off">
-        <label style={styles.label}>
-          Имя
-          <input
-            type="text"
-            name="name"
-            value={name}
-            onChange={handleInputChange}
-          />
-        </label>
+      <form onSubmit={handleSubmit} className={styles.form} autoComplete="off">
+        <label className={styles.label}>Name</label>
+        <input
+          type="text"
+          name="name"
+          value={name}
+          onChange={handleInputChange}
+          className={styles.login_input}
+        />
 
-        <label style={styles.label}>
-          Почта
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleInputChange}
-          />
-        </label>
+        <label className={styles.label}>Email</label>
+        <input
+          type="email"
+          name="email"
+          value={email}
+          onChange={handleInputChange}
+          className={styles.login_input}
+        />
 
-        <label style={styles.label}>
-          Пароль
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handleInputChange}
-          />
-        </label>
+        <label className={styles.label}>Password</label>
+        <input
+          type="password"
+          name="password"
+          value={password}
+          onChange={handleInputChange}
+          className={styles.login_input}
+        />
 
-        <button type="submit">Зарегистрироваться</button>
+        <button type="submit" className={styles.submit_button}>
+          Registration
+        </button>
       </form>
     </div>
   );
-};
+}

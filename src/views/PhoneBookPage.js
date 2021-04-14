@@ -8,7 +8,7 @@ import useStyles from '../AppStyles';
 import { useSelector } from 'react-redux';
 import { getContacts } from '../redux/contacts/contacts-selectors';
 
-export const PhoneBook = () => {
+export default function PhoneBook() {
   const dispatch = useDispatch();
   const classes = useStyles();
   const contacts = useSelector(getContacts);
@@ -28,4 +28,4 @@ export const PhoneBook = () => {
       )}
     </div>
   );
-};
+}

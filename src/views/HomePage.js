@@ -15,18 +15,16 @@ const useStyles = createUseStyles({
   },
 });
 
-const HomePage = () => {
-  const styles = useStyles;
+export default function HomePage() {
+  const styles = useStyles();
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>
-        Добро пожаловать!{' '}
+    <div className={styles.container}>
+      <h1 className={styles.title}>
+        Welcome!{' '}
         <span role="img" aria-label="Иконка приветствия">
-          💁‍♀️
+          😊
         </span>
       </h1>
     </div>
   );
-};
-
-export default HomePage;
+}

@@ -4,6 +4,9 @@ import PrivateRoute from './Components/PrivetRoute';
 import PublicRoute from './Components/PublicRoute';
 import { useDispatch } from 'react-redux';
 import { getCurrentUser } from './redux/authOperation/auth-operations';
+import AppBar from './Components/AppBar/AppBar';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import Loader from 'react-loader-spinner';
 
 import React from 'react';
 
@@ -19,28 +22,42 @@ function App() {
     dispatch(getCurrentUser());
   }, [dispatch]);
   return (
-    <Suspense fallback={<p>Загружаем...</p>}>
-      <Switch>
-        <PublicRoute exact path="/" component={HomePage} />
-        <PublicRoute
-          path="/register"
-          restricted
-          redirectTo="/contacts"
-          component={RegisterPage}
-        />
-        <PublicRoute
-          path="/login"
-          restricted
-          redirectTo="/contacts"
-          component={LoginPage}
-        />
-        <PrivateRoute
-          path="/contacts"
-          redirectTo="/login"
-          component={PhoneBookPage}
-        />
-      </Switch>
-    </Suspense>
+    <>
+      <AppBar />
+      <Suspense
+        fallback={
+          <Loader
+            type="ThreeDots"
+            color="#00BFFF"
+            height={100}
+            width={100}
+            timeout={3000}
+            className="loader"
+          />
+        }
+      >
+        <Switch>
+          <PublicRoute exact path="/" component={HomePage} />
+          <PublicRoute
+            path="/register"
+            restricted
+            redirectTo="/contacts"
+            component={RegisterPage}
+          />
+          <PublicRoute
+            path="/login"
+            restricted
+            redirectTo="/contacts"
+            component={LoginPage}
+          />
+          <PrivateRoute
+            path="/contacts"
+            redirectTo="/login"
+            component={PhoneBookPage}
+          />
+        </Switch>
+      </Suspense>
+    </>
   );
 }
 

@@ -4,7 +4,7 @@ export const getFilter = state => state.contacts.filter;
 
 export const getContacts = state => state.contacts.items;
 
-export const getError = state => state.contacts.error.message;
+export const getError = state => state.contacts.error;
 
 export const showContacts = createSelector(
   [getContacts, getFilter],
